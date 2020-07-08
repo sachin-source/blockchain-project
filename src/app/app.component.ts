@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Poll, PollForm, PollVote } from './types';
+import { PollService } from './poll-service/poll.service';
 
 @Component({
   selector: 'app-root',
@@ -6,20 +8,28 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  //title = 'blockchain-poll';
   showForm = false;
+  activePoll: Poll = null;
   
-  polls = [{
-	  question: "do you like dogs or cats?",
-	  image : 'https://images.pexels.com/photos/46024/pexels-photo-46024.jpeg',
-	  votes : [0, 5, 7],
-	  voted : true,
-  },
-  {
-	  question: "Best month for summer holidays?",
-	  image : 'https://images.pexels.com/photos/1118448/pexels-photo-1118448.jpeg',
-	  votes : [1, 6, 4],
-	  voted : false,
+  polls = this.ps.getPolls();
+  
+  constructor(private ps: PollService){
+	  
   }
-  ]
+  
+  setActivePoll(poll){
+	  this.activePoll = null;
+	  
+	  setTimeout(() => {
+		  this.activePoll = poll;
+	  }, 100)
+  }
+  handlePollCreate(poll: PollForm){
+	  this.ps.createPoll(poll);
+  }
+  
+  
+  handlePollVote(pollVoted : PollVote){
+	  this.ps.vote(pollVoted.id, pollVoted.vote)
+  }
 }

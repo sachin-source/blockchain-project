@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { PollService } from './poll-service/poll.service';
 
 import { AppComponent } from './app.component';
 import { PollCreateComponent } from './poll-create/poll-create.component';
@@ -18,7 +19,7 @@ import { PollVoteComponent } from './poll-vote/poll-vote.component';
   imports: [
     BrowserModule, FormsModule, ReactiveFormsModule
   ],
-  providers: [],
+  providers: [PollService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
